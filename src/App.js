@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React , { useState } from 'react';
+import Asset from './Asset';
+import Categories from './Categories';
+import items from './data'
+import Css from './App.css'
 
 function App() {
+const [assetItems, setAssetItems] = useState(items);
+const [categories, setCategories] = useState([]);
+
+const filterItems = (category) => {
+  const newItems = items.filter((item) => item.category===category);
+  setAssetItems(newItems);
+}
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <section className='menu section'>
+        <div className='title'>
+          <h2>My Aseets!!!</h2>
+        </div>
+        <Categories filterItems={filterItems} />
+        <Asset items={assetItems} />
+       </section>
+    </main>
   );
 }
 
